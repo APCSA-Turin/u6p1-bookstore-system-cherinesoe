@@ -10,7 +10,7 @@ public class Main{
         Book b5 = new Book("Test","Author",1900, "1234", 1);
         store.addBook(b1);store.addBook(b2);store.addBook(b3);store.addBook(b4);store.addBook(b5);
         System.out.println(store.bookStoreBookInfo());
-        store.removeBook(b1);store.removeBook(b1);
+        store.removeBook(b1);store.removeBook(b1);store.removeBook(b1);
         System.out.println(store.bookStoreBookInfo());
         
     }

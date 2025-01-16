@@ -2,8 +2,9 @@ package com.example.project;
 
 public class BookStore{
     //requires at least 2 attributes Book[] books, User[] users (initialized to an empty array of 10 max users)
-    private Book[] books = new Book[5];
+    private Book[] books;
     private User[] users = new User[10];
+    private int amtOfBooks;
 
     //requires 1 empty constructor
     public BookStore() {}
@@ -57,40 +58,52 @@ public class BookStore{
 
     //adds book to books array 
     public void addBook(Book book) {
-        for (int i = 0; i < books.length; i++) {
-            if (books[i] == null) {
-                books[i] = book;
-                i = books.length;
+        if (amtOfBooks == 0) {
+            books = new Book[1];
+            books[0] = book;
+            amtOfBooks++;
+        } else {
+            Book[] temp = new Book[amtOfBooks + 1];
+            for (int i = 0; i < amtOfBooks; i++) {
+                temp[i] = books[i];
             }
+            temp[temp.length - 1] = book;
+            books = temp;
+            amtOfBooks++;
         }
     }
 
     //inserts book at given index in books array
     public void insertBook(Book book, int index) {
-        books[index] = book;
+        Book[] temp = new Book[books.length + 1];
+        for (int i = 0; i < index; i++) {
+            temp[i] = books[i];
+        }
+        temp[index] = book;
+        for (int i = index + 1; i < temp.length; i++) {
+            temp[i] = books[i - 1];
+        }
+        books = temp;
     }
 
     public void removeBook(Book book) {
+        Book[] temp = new Book[books.length - 1];
+        int index = 0;
         for (int i = 0; i < books.length; i++) {
-            if (book == null) {
-
-            } else {
-                (book.getIsbn() == books[i].getIsbn()) {
-                    books[i] = null;
-                    i = books.length;
-            } 
+            if (books[i].getIsbn().equals(book.getIsbn())) {
+                index = i;
+                books[i].setQuantity(books[i].getQuantity() - 1);
+            }
+            if (books[i].getQuantity() == 0) {
+                for (int j = 0; j < index; j++) {
+                    temp[j] = books[j];
+                }
+                for (int k = index + 1; k < books.length; k++) {
+                    temp[k - 1] = books[k];
+                }
+                books = temp;
+            }
         }
-        // for (int i = 0; i < books.length; i++) {
-        //     if (books[i] == null) {
-        //         for (int j = i; j < books.length; j++) {
-        //             if (books[j] != null) {
-        //                 books[i] = books[j];
-        //                 books[j] = null;
-        //                 j = books.length;
-        //             }
-        //         }
-        //     }
-        // }
     }
        
     public String bookStoreBookInfo() {
