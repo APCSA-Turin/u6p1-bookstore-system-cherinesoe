@@ -86,6 +86,7 @@ public class BookStore{
         books = temp;
     }
 
+    //removes quantity from book and if there are no more copies left, removes book from the store
     public void removeBook(Book book) {
         Book[] temp = new Book[books.length - 1];
         int index = 0;
@@ -105,15 +106,24 @@ public class BookStore{
             }
         }
     }
-       
+    
+    //returns information of all books in store
     public String bookStoreBookInfo() {
         String info = "";
-        for (Book book: books) {
-            info += book.bookInfo() + "\n";
+        for (int i =  0; i < books.length; i++) {
+            info += (i + 1) + ". " + books[i].bookInfo() + "\n";
         }
         return info;
     } 
 
-    // public String bookStoreUserInfo() {} //you are not tested on this method but use it for debugging purposes
-
+    //returns information of all registered users
+    public String bookStoreUserInfo() {
+        String info = "";
+        for (int i =  0; i < users.length; i++) {
+            if (users[i] != null) {
+                info += (i + 1) + ". " + users[i].userInfo() + "\n";
+            }
+        }
+        return info;
+    } 
 }
